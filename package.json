@@ -1,0 +1,32 @@
+{
+  "name": "store-credits",
+  "version": "1.0.0",
+  "description": "Microservice for Users store credits  management",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "test": "jest",
+    "coverage" : "jest --testTimeout=50000 --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agucabral21/store-credits.git"
+  },
+  "author": "Agustin Cabral",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agucabral21/store-credits/issues"
+  },
+  "homepage": "https://github.com/agucabral21/store-credits#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "supertest": "^6.3.3"
+  }
+}
