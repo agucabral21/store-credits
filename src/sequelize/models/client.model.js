@@ -1,9 +1,6 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../sequelize');
-
 //Export a function that defines the model
-module.exports = (sequelize) => {
-  sequelize.define('client', {
+module.exports = (sequelize, DataTypes) => {
+  const Client = sequelize.define('Client', {
     id: {
       autoIncrement: true,
       primaryKey: true,
