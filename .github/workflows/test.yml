@@ -22,6 +22,7 @@ jobs:
       DB_DIALECT: mysql
 
     steps:      
+      - name: Init db ${{ env.DB_NAME }}
       - uses: mirromutth/mysql-action@v1.1
         with:
           character set server: 'utf8' 
