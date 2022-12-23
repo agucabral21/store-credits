@@ -93,6 +93,6 @@ describe('Test for Client Service.', () => {
     let count = await ClientModel.count();
     expect(count).toBe(0);
     let client = await ClientService.get(data);
-    expect(client).toBe('hello');
+    expect(client).toBe(null);
   });
 });
