@@ -21,9 +21,9 @@ jobs:
       DB_NAME: storeCredits_tests
       DB_DIALECT: mysql
 
-    steps:      
-      - uses: mirromutth/mysql-action@v1.1
-      - name: Init db ${{ env.DB_NAME }}
+    steps:     
+      - name: Init db ${{ env.DB_NAME }} 
+      - uses: mirromutth/mysql-action@v1.1      
         with:
           character set server: 'utf8' 
           collation server: 'utf8_general_ci' 
@@ -33,7 +33,7 @@ jobs:
           mysql password: ${{ env.DB_PASSWORD }} # Required if "mysql user" exists. The password for the "mysql user"
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}      
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
