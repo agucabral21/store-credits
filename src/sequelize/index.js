@@ -17,6 +17,7 @@ const sequelize = new Sequelize(dbName, user, pass, {
     acquire: 30000,
     idle: 10000,
   },
+  logging: false,
 });
 
 const modelDefiners = [require('./models/credits.model'), require('./models/client.model'), require('./models/store.model')];
