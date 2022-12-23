@@ -27,10 +27,10 @@ for (const modelDefiner of modelDefiners) {
   modelDefiner(sequelize, DataTypes);
 }
 
-runConfig(sequelize);
-
 const db_connect = () =>
   new Promise(async (resolve, reject) => {
+    console.log(`Run Db Configurations`);
+    await runConfig(sequelize);
     console.log(`Checking database connection...`);
     try {
       await sequelize.authenticate();
