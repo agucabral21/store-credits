@@ -3,10 +3,10 @@ const { DataTypes } = require('sequelize');
 const { runConfig } = require('./config');
 
 const host = process.env.DB_HOST || 'localhost';
-const dbName = process.env.DB_NAME || 'credits';
+const dbName = process.env.DB_NAME || 'storeCredits';
 const user = process.env.DB_USER || false;
 const pass = process.env.DB_PASSWORD || false;
-const dialect = process.env.DB_DIALECT || mysql;
+const dialect = process.env.DB_DIALECT || 'mysql';
 
 const sequelize = new Sequelize(dbName, user, pass, {
   host,
@@ -40,4 +40,8 @@ const db_connect = () =>
     resolve();
   });
 
-module.exports = { sequelize, db_connect };
+const db_disconnect = async () => {
+  await sequelize.close();
+};
+
+module.exports = { sequelize, db_connect, db_disconnect };
