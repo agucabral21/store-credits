@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
-const envFile = process.env.ENV === 'TEST' ? 'TEST.env' : '.env';
-dotenv.config({ path: envFile });
+//const envFile = process.env.ENV === 'TEST' ? 'TEST.env' : '.env';
+dotenv.config({ path: '.env' });
 
 const { sequelize, db_connect } = require('../sequelize');
 const ClientService = require('../services/ClientService');

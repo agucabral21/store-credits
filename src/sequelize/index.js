@@ -3,10 +3,10 @@ const { DataTypes } = require('sequelize');
 const { runConfig } = require('./config');
 
 const host = process.env.DB_HOST || 'localhost';
-const dbName = process.env.DB_NAME || 'credits';
+const dbName = process.env.DB_NAME || 'storeCredits';
 const user = process.env.DB_USER || false;
 const pass = process.env.DB_PASSWORD || false;
-const dialect = process.env.DB_DIALECT || 'sqlite';
+const dialect = process.env.DB_DIALECT || 'mysql';
 
 const sequelize = new Sequelize(dbName, user, pass, {
   host,
