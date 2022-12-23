@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { DataTypes } = require('sequelize');
+const { runConfig } = require('./config');
 
 const host = process.env.DB_HOST || 'localhost';
 const dbName = process.env.DB_NAME || 'credits';
@@ -24,6 +25,8 @@ const modelDefiners = [require('./models/credits.model'), require('./models/clie
 for (const modelDefiner of modelDefiners) {
   modelDefiner(sequelize, DataTypes);
 }
+
+runConfig(sequelize);
 
 const db_connect = () =>
   new Promise(async (resolve, reject) => {
