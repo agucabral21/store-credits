@@ -83,7 +83,7 @@ describe('Test for Client Service.', () => {
     let count = await ClientModel.count();
     expect(count).toBe(1);
     let client = await ClientService.get(data);
-    expect(client.mail).toBe('check');
+    expect(client.mail).toBe(data.mail);
   });
 
   test('.get() ->  should return empty ', async () => {
