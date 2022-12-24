@@ -113,9 +113,11 @@ describe('Testing Credit Endpoints.', () => {
       });
   });
 
-  test('It should add and update credits correctly.', (done) => {
+  test('It should add and update credits correctly and alert of not allowed discount.', (done) => {
     let firstAmount = 500;
     let secondAmount = 200;
+    let thirdAmount = -300;
+    let fourthAmount = -800;
 
     let body = {
       storeName: 'b',
@@ -130,6 +132,7 @@ describe('Testing Credit Endpoints.', () => {
         expect(response.body.amount).toBe(firstAmount);
         expect(response.body.storeName).toBe(body.storeName);
         expect(response.body.clientMail).toBe(body.clientMail);
+
         let totalAmount = firstAmount + secondAmount;
         body.amount = secondAmount;
 
@@ -143,7 +146,33 @@ describe('Testing Credit Endpoints.', () => {
             expect(response.body.amount).toBe(totalAmount);
             expect(response.body.storeName).toBe(body.storeName);
             expect(response.body.clientMail).toBe(body.clientMail);
-            done();
+
+            totalAmount = firstAmount + secondAmount + thirdAmount;
+            body.amount = thirdAmount;
+
+            request(app)
+              .put('/credits')
+              .set('Accept', 'application/json')
+              .send(body)
+              .then((response) => {
+                console.log(response.statusCode);
+                expect(response.statusCode).toBe(200);
+                expect(response.body.amount).toBe(totalAmount);
+                expect(response.body.storeName).toBe(body.storeName);
+                expect(response.body.clientMail).toBe(body.clientMail);
+
+                body.amount = fourthAmount;
+
+                request(app)
+                  .put('/credits')
+                  .set('Accept', 'application/json')
+                  .send(body)
+                  .then((response) => {
+                    console.log(response.statusCode);
+                    expect(response.statusCode).toBe(500);
+                    done();
+                  });
+              });
           });
       });
   });
