@@ -54,8 +54,10 @@ describe('Test for Client Service.', () => {
     };
     let client = await ClientModel.findOne({ where: data });
     expect(client).toBe(null);
+    let count = await ClientModel.count();
+    expect(count).toBe(0);
 
-    let getClient = await ClientService.getOrCreate(data, data);
+    let getClient = await ClientService.findOrCreate(data);
 
     client = await ClientModel.findOne({ where: data });
     expect(client.mail).toBe(data.mail);
@@ -65,11 +67,10 @@ describe('Test for Client Service.', () => {
     let data = {
       mail: 'test@test.com',
     };
-    let filters = data;
     let addClient = await ClientModel.create(data);
     let count = await ClientModel.count();
     expect(count).toBe(1);
-    let client = await ClientService.getOrCreate(data, data);
+    let client = await ClientService.findOrCreate(data);
     expect(client.mail).toBe(data.mail);
     count = await ClientModel.count();
     expect(count).toBe(1);
