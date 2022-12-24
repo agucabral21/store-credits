@@ -14,7 +14,7 @@ class ClientService {
 
   static async findOrCreate(data) {
     let [create, created] = await Client.findOrCreate({ where: data });
-    if (created) console.log('A new create was created with', data);
+    if (created) console.log('A new client was created with', data);
     return create;
   }
 }
