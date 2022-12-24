@@ -12,13 +12,10 @@ class ClientService {
     return client;
   }
 
-  static async getOrCreate(filters, data) {
-    let client = await Client.findOne({ where: filters });
-
-    if (!client) {
-      client = await this.add(data);
-    }
-    return client;
+  static async findOrCreate(data) {
+    let [create, created] = await Client.findOrCreate({ where: data });
+    if (created) console.log('A new create was created with', data);
+    return create;
   }
 }
 
