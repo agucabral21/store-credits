@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-const envFile = process.env.ENV === 'TEST' ? 'TEST.env' : '.env';
+const envFile = process.env.ENV === 'TEST' ? '.env.test' : '.env';
 dotenv.config({ path: envFile });
 
 const { sequelize, db_connect } = require('../sequelize');

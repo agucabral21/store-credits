@@ -1,25 +1,27 @@
 const dotenv = require('dotenv');
-//const envFile = process.env.ENV === 'TEST' ? 'TEST.env' : '.env';
-dotenv.config({ path: '.env' });
+const envFile = process.env.ENV === 'TEST' ? '.env.test' : '.env';
+dotenv.config({ path: envFile });
 
 const { sequelize, db_connect } = require('../sequelize');
 const ClientService = require('../services/ClientService');
 
 const ClientModel = sequelize.models.Client;
 
+const { db_truncate } = require('./utils');
+
 beforeAll(async () => {
   await db_connect();
 });
 
 beforeEach(async () => {
-  await ClientModel.destroy({
-    truncate: { cascade: true },
-  });
+  await db_truncate(sequelize);
 });
 
 afterAll(async () => {
+  await db_truncate(sequelize);
   await sequelize.close();
 });
+
 describe('Test for Client Service.', () => {
   test('.add() -> should add client', async () => {
     let data = {
