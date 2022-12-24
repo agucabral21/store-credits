@@ -39,6 +39,11 @@ class CreditController {
       const clientMail = req.query.client;
       const storeName = req.query.store;
 
+      if (!clientMail || !storeName) {
+        let message = !clientMail ? 'client' : 'store';
+        return res.status(400).send(errorResponse(`Must specify {${message}} value in queryParams`));
+      }
+
       const client = await ClientService.get({ mail: clientMail });
       if (!client) {
         return res.status(404).send(errorResponse('There is no such client'));
