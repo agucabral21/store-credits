@@ -4,7 +4,8 @@
   "description": "Microservice for Users store credits  management",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "dev_start": "nodemon src/server.js",
+    "start": "node src/server.js",
     "test": "ENV=TEST jest -i",
     "coverage": "jest --testTimeout=50000 --coverage"
   },

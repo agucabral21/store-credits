@@ -5,7 +5,7 @@ const { runConfig } = require('./config');
 const host = process.env.DB_HOST || 'localhost';
 const dbName = process.env.DB_NAME || 'storeCredits';
 const user = process.env.DB_USER || false;
-const pass = process.env.DB_PASSWORD || false;
+const pass = process.env.DB_PASS || false;
 const dialect = process.env.DB_DIALECT || 'mysql';
 
 const sequelize = new Sequelize(dbName, user, pass, {
@@ -29,10 +29,8 @@ for (const modelDefiner of modelDefiners) {
 
 const db_connect = () =>
   new Promise(async (resolve, reject) => {
-    console.log(`Run Db Configurations`);
-    await runConfig(sequelize);
-    console.log(`Checking database connection...`);
     try {
+      await runConfig(sequelize);
       await sequelize.authenticate();
       console.log('Database connection OK!');
     } catch (error) {
