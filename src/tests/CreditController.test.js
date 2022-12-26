@@ -141,7 +141,6 @@ describe('Testing Credit Endpoints.', () => {
           .set('Accept', 'application/json')
           .send(body)
           .then((response) => {
-            console.log(response.statusCode);
             expect(response.statusCode).toBe(200);
             expect(response.body.amount).toBe(totalAmount);
             expect(response.body.storeName).toBe(body.storeName);
@@ -155,7 +154,6 @@ describe('Testing Credit Endpoints.', () => {
               .set('Accept', 'application/json')
               .send(body)
               .then((response) => {
-                console.log(response.statusCode);
                 expect(response.statusCode).toBe(200);
                 expect(response.body.amount).toBe(totalAmount);
                 expect(response.body.storeName).toBe(body.storeName);
@@ -168,7 +166,6 @@ describe('Testing Credit Endpoints.', () => {
                   .set('Accept', 'application/json')
                   .send(body)
                   .then((response) => {
-                    console.log(response.statusCode);
                     expect(response.statusCode).toBe(500);
                     done();
                   });
