@@ -9,6 +9,6 @@ db_connect()
     app.listen(port, () => console.log(`Express listening on port ${port}`));
   })
   .catch((error) => {
-    console.log('Unable to connect to the database');
+    console.log('ERROR: Unable to connect to the database');
     console.log(error.message);
   });

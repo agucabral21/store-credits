@@ -29,10 +29,8 @@ for (const modelDefiner of modelDefiners) {
 
 const db_connect = () =>
   new Promise(async (resolve, reject) => {
-    console.log(`Run Db Configurations`);
-    await runConfig(sequelize);
-    console.log(`Checking database connection...`);
     try {
+      await runConfig(sequelize);
       await sequelize.authenticate();
       console.log('Database connection OK!');
     } catch (error) {
