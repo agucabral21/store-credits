@@ -6,7 +6,7 @@
   "scripts": {
     "dev_start": "nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "ENV=TEST jest -i",
+    "test": "ENV=TEST jest -i --testTimeout=10000",
     "coverage": "jest --testTimeout=50000 --coverage"
   },
   "jest": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/agucabral21/store-credits#readme",
   "dependencies": {
+    "csv": "^6.2.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mysql2": "^2.3.3",
