@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({ path: '.env.batch' });
 
 const { sequelize, db_connect } = require('../src/sequelize');
 const { Client, Store, Credits } = sequelize.models;
