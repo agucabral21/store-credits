@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { sequelize, db_connect } = require('../sequelize');
+const { sequelize, db_connect } = require('../src/sequelize');
 const { Client, Store, Credits } = sequelize.models;
 
 const { parse } = require('csv-parse');
