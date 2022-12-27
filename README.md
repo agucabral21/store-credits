@@ -6,7 +6,7 @@ Microservice Oriented to Manage Client Credits in a set Of Stores
 | VERB | URL |Params| Body | Description |
 |--|--|--|--|--|
 | GET | /credits?client=X&store=X | client=clientMail store=storeName | none|You can use the query params as you desire, if you send none it will return all credits, if you use some of them they will filter using corresponding data|
-| POST | /credits | None | <code>{<br>  "amount": integer,<br>  "clientMail": example@mail.com"<br>"storeName": A"<br>}</code> |It will create client and store if they do not exist and it will create or update their credits.|
+| POST | /credits | None | {<br>"amount":5,<br>"clientMail":"example@mail.com",<br>"storeName":"A"<br> }|It will create client and store if they do not exist and it will create or update their credits.|
 | GET | /status | None |None|Microservice Status Check|
 
 
