@@ -1,10 +1,10 @@
 async function runConfig(sequelize) {
   const { Client, Credits, Store } = sequelize.models;
 
-  Client.belongsToMany(Store, { as: 'stores', through: Credits, foreignKey: 'clientId' });
-  Store.belongsToMany(Client, { as: 'clients', through: Credits, foreignKey: 'storeId' });
-  Credits.belongsTo(Store, { as: 'store', foreignKey: 'clientId' });
-  Credits.belongsTo(Client, { as: 'client', foreignKey: 'storeId' });
+  Client.hasMany(Credits, { as: 'clientCredits', foreignKey: 'clientId' });
+  Credits.belongsTo(Client, { as: 'clientCredits', foreignKey: 'clientId' });
+  Store.hasMany(Credits, { as: 'storeCredits', foreignKey: 'storeId' });
+  Credits.belongsTo(Store, { as: 'storeCredits', foreignKey: 'storeId' });
 
   await sequelize.sync();
 }

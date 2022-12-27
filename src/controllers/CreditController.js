@@ -39,33 +39,23 @@ class CreditController {
       const clientMail = req.query.client;
       const storeName = req.query.store;
 
-      if (!clientMail || !storeName) {
-        let message = !clientMail ? 'client' : 'store';
-        return res.status(400).send(errorResponse(`Must specify {${message}} value in queryParams`));
+      let filters = {};
+      if (clientMail) filters['$clientCredits.mail$'] = clientMail;
+      if (storeName) filters['$storeCredits.name$'] = storeName;
+
+      let result = await CreditsService.findAll({ ...filters });
+      if (result.length === 0) {
+        return res.status(404).send();
       }
+      let parsed = result.map((elem) => {
+        return {
+          amount: elem.amount,
+          clientMail: elem['clientCredits.mail'],
+          storeName: elem['storeCredits.name'],
+        };
+      });
 
-      const client = await ClientService.get({ mail: clientMail });
-      if (!client) {
-        return res.status(404).send(errorResponse('There is no such client'));
-      }
-      const store = await StoreService.get({ name: storeName });
-      if (!store) {
-        return res.status(404).send(errorResponse('There is no such store'));
-      }
-
-      const filters = {
-        storeId: store.id,
-        clientId: client.id,
-      };
-
-      const credits = await CreditsService.getCredits(filters);
-
-      const ret = {
-        storeName: storeName,
-        clientMail: clientMail,
-        amount: credits.amount,
-      };
-      return res.status(200).send(ret);
+      return res.status(200).send(parsed);
     } catch (err) {
       return res.status(500).send(errorResponse(err.message));
     }
