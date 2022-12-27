@@ -1,8 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-//TODO: rollback is not running properly
-
 const { sequelize, db_connect } = require('../sequelize');
 const { Client, Store, Credits } = sequelize.models;
 
@@ -30,7 +28,9 @@ async function parseData(csvFilePath) {
       });
   });
   //This returns one row per each clientMail-storeName
-  let ret = dataArray.reduce((acc, curr) => {
+  //Used for reducing the array and have just one update per store-client
+  //not used for now for rollback possible conflicts
+  /*let ret = dataArray.reduce((acc, curr) => {
     let { clientMail, storeName, amount } = curr;
     const key = `${clientMail}-${storeName}`;
     if (!acc[key]) {
@@ -39,8 +39,8 @@ async function parseData(csvFilePath) {
     acc[key].amount += parseInt(amount);
     return acc;
   }, {});
-
-  return ret;
+  */
+  return dataArray;
 }
 
 async function loadCSVtoDB(csvFilePath) {
@@ -78,7 +78,7 @@ async function loadCSVtoDB(csvFilePath) {
         });
 
         if (!credit_created) {
-          await credit.increment('amount', { by: amount }, { transaction });
+          await credit.increment('amount', { by: amount, transaction });
         }
         console.log('Inserting Credits ', where, amount);
       }
@@ -86,7 +86,7 @@ async function loadCSVtoDB(csvFilePath) {
 
     await transaction.commit();
   } catch (error) {
-    //TODO: i could not solve reason why transaction is not rolling back so here I log in which line the transaction failed
+    console.log('Rolling back transaction');
     console.log(error.errors[0].message, error.errors[0].instance.dataValues);
     await transaction.rollback();
   } finally {
