@@ -24,10 +24,10 @@ afterAll(async () => {
 });
 
 describe('Testing Credit Endpoints.', () => {
-  test('It should return 404 for not found client.', (done) => {
+  test('It should return 404 for not found', (done) => {
     let queryParams = {
-      store: 'b',
-      client: 'agucabral@gmail.com',
+      store: 'aaa',
+      client: 'eee@gmail.com',
     };
     request(app)
       .get('/credits')
@@ -35,32 +35,8 @@ describe('Testing Credit Endpoints.', () => {
       .set('Accept', 'application/json')
       .then((response) => {
         expect(response.statusCode).toBe(404);
-        expect(response.body.error).toBe(true);
-        expect(response.body.message).toBe('There is no such client');
         done();
       });
-  });
-
-  describe('Testing Credit Endpoints.', () => {
-    test('It should return 404 for not found store.', async () => {
-      let mail = 'test@test.com';
-      const addClient = await ClientModel.create({ mail: 'test@test.com' });
-
-      let queryParams = {
-        store: 'b',
-        client: mail,
-      };
-
-      return request(app)
-        .get('/credits')
-        .query(queryParams)
-        .set('Accept', 'application/json')
-        .then((response) => {
-          expect(response.statusCode).toBe(404);
-          expect(response.body.error).toBe(true);
-          expect(response.body.message).toBe('There is no such store');
-        });
-    });
   });
 
   test('It should find credits.', (done) => {
@@ -88,7 +64,7 @@ describe('Testing Credit Endpoints.', () => {
           .set('Accept', 'application/json')
           .then((response) => {
             expect(response.statusCode).toBe(200);
-            expect(response.body.storeName).toBe(body.storeName);
+            expect(response.body[0].storeName).toBe(body.storeName);
             done();
           });
       });
