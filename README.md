@@ -1,5 +1,6 @@
 # store-credits
 Microservice Oriented to Manage Client Credits in a set Of Stores
+The project has an .env.example so you know the data you need to set
 
 ## Endpoints
 
@@ -12,7 +13,7 @@ Microservice Oriented to Manage Client Credits in a set Of Stores
 
 
 ## Batch Process
-In /process you can find a nodeload_csv.js that will run an execution of batch load to de database from a csv.
+In "store-credits/process" you can find the load_csv.js that will run an execution of batch_load to de database from a specified csv.
 
 The format of the csv is the next one:
 
@@ -24,7 +25,7 @@ The format of the csv is the next one:
 
 There can be many rows with the same Client/Store pair.
 
-The process will use .env.batch properties to connect to the desired database.
+The process will use .env.batch properties to connect to the desired database (the project has an .env.example so you know the data you need to set).
 
 To execute the project you need to run
 
