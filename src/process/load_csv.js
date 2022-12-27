@@ -1,6 +1,8 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
+//TODO: rollback is not running properly
+
 const { sequelize, db_connect } = require('../sequelize');
 const { Client, Store, Credits } = sequelize.models;
 
@@ -15,7 +17,8 @@ async function parseData(csvFilePath) {
       .pipe(parse({ delimiter: ',', from_line: 2 }))
       .on('data', (data) => {
         // Push each row of data to the array
-        dataArray.push(data);
+        let [clientMail, storeName, amount] = data;
+        dataArray.push({ clientMail, storeName, amount });
       })
       .on('end', () => {
         // Resolve the promise when the CSV has been fully read
@@ -26,9 +29,9 @@ async function parseData(csvFilePath) {
         reject(error);
       });
   });
-
+  //This returns one row per each clientMail-storeName
   let ret = dataArray.reduce((acc, curr) => {
-    let [clientMail, storeName, amount] = curr;
+    let { clientMail, storeName, amount } = curr;
     const key = `${clientMail}-${storeName}`;
     if (!acc[key]) {
       acc[key] = { clientMail: clientMail, storeName: storeName, amount: 0 };
