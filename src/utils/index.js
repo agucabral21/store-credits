@@ -6,4 +6,11 @@ const errorResponse = (message, data) => {
   };
 };
 
-module.exports = { errorResponse };
+const okResponse = (data) => {
+  return {
+    error: false,
+    data,
+  };
+};
+
+module.exports = { okResponse, errorResponse };

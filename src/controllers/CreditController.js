@@ -1,7 +1,7 @@
 const ClientService = require('../services/ClientService');
 const StoreService = require('../services/StoreService');
 const CreditsService = require('../services/CreditsService');
-const { errorResponse } = require('../utils');
+const { errorResponse, okResponse } = require('../utils');
 
 class CreditController {
   static async updateCredits(req, res, next) {
@@ -28,7 +28,7 @@ class CreditController {
         amount: credits.amount,
       };
 
-      return res.status(200).send(ret);
+      return res.status(200).send(okResponse(ret));
     } catch (err) {
       return res.status(500).send(errorResponse(err.message));
     }
@@ -55,7 +55,7 @@ class CreditController {
         };
       });
 
-      return res.status(200).send(parsed);
+      return res.status(200).send(okResponse(parsed));
     } catch (err) {
       return res.status(500).send(errorResponse(err.message));
     }
