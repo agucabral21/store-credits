@@ -28,7 +28,7 @@ class CreditController {
         amount: credits.amount,
       };
 
-      return res.status(200).send(okResponse(ret));
+      return res.type('json').status(200).send(okResponse(ret));
     } catch (err) {
       return res.status(500).send(errorResponse(err.message));
     }
@@ -45,7 +45,7 @@ class CreditController {
 
       let result = await CreditsService.findAll({ ...filters });
       if (result.length === 0) {
-        return res.status(404).send();
+        return res.status(404).send(okResponse([], 'No credits found with specified filters.'));
       }
       let parsed = result.map((elem) => {
         return {
@@ -55,7 +55,7 @@ class CreditController {
         };
       });
 
-      return res.status(200).send(okResponse(parsed));
+      return res.type('json').status(200).send(okResponse(parsed));
     } catch (err) {
       return res.status(500).send(errorResponse(err.message));
     }
