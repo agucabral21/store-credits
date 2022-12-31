@@ -6,10 +6,11 @@ const errorResponse = (message, data) => {
   };
 };
 
-const okResponse = (data) => {
+const okResponse = (data, message) => {
   return {
     error: false,
     data,
+    message,
   };
 };
 
